@@ -37,6 +37,7 @@ def mouse_position(event, x, y, flags, param):
     image_split = image.split('.')
     file_name = txt_file_path + image_split[0] + '.txt'
 
+    # check file exist
     if not os.path.exists(txt_file_path):
         os.makedirs(txt_file_path)
 
