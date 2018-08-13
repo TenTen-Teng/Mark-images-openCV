@@ -12,7 +12,7 @@ def get_images_list(path):
 
     while bool_path:
         if not os_path.exists(path):
-            path = input("path doesn't exist, please check it and re-enter:")
+            path = input("path doesn't exist, please check it and re-enter: ")
         else:
             bool_path = False
 
@@ -57,11 +57,29 @@ def mouse_position(event, x, y, flags, param):
 
         f.close()
 
-    cv2.rectangle(img, position[0], position[1], (0, 255, 0), 2)
+    cv2.rectangle(img, position[0], position[1], (0, 255, 0))
+
+
+def delete_coordinate(image):
+    file_path = './coordinate/' + image.split('.')[0] + '.txt'
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+        if lines is None:
+            print('no marks!')
+        else:
+            lines = lines[:-1]
+            f.close()
+    if lines is not None:
+        with open(file_path, 'w') as f:
+            f.writelines(lines)
+            f.close()
+        print("deleted!")
 
 
 # file directory
-PATH = ABSOLUTE_PATH_IMAGE_DIRECTORY
+# enter image directory (absolute path)
+PATH = input("please enter image directory (absolute path): ")
+
 image_list = get_images_list(PATH)
 
 for image in image_list:
@@ -72,8 +90,14 @@ for image in image_list:
 
     while(1):
         cv2.imshow(image, img)
-        if cv2.waitKey(20) & 0xFF == 27:
+        key = cv2.waitKey(10) & 0XFF
+        if key == 32:
             break
+        elif key == 27:
+            delete_coordinate(image)
+            font = cv2.FONT_ITALIC
+            cv2.putText(img, 'Deleted!', (0, 20), font, 1, (0, 0, 255), 5, cv2.LINE_AA)
+
     cv2.destroyAllWindows()
 
 
