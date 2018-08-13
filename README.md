@@ -16,11 +16,18 @@ mouse_position(event, x, y, flags, param)
 * draw marked area
 * write coordinate into txt file
 
+```
+delete_coordinate(image)
+```
+* delete the last mark area record
+
 
 ## Run
 
-* change your own PATH
-* enter "esc" to mark next image
+* run the code
+* enter image directory (absolute path)
+* press "blank" to next image
+* press "esc" delete the last mark area from related txt file
 
 ## Result
 
